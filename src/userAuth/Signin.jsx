@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Link, useNavigate } from 'react-router-dom';
 import { loginUserAsync } from '../redux/thunk/authThunk';
-import Navbar from '../pages/Navbar2';
+import Navbar from '../components/Navbar';
+// import Navbar from '../pages/Navbar2';
 
 const Signin = ({ loginUser, isAuthenticated }) => {
   const navigate = useNavigate();
@@ -19,7 +20,6 @@ const Signin = ({ loginUser, isAuthenticated }) => {
 
     return () => {
       console.log("Cleaning up Signin component...");
-      // Any cleanup logic can be added here
     };
   }, [isAuthenticated, navigate]);
 
@@ -42,39 +42,56 @@ const Signin = ({ loginUser, isAuthenticated }) => {
   return (
     <>
       <Navbar />
-      <div className="login-container">
-        <h1 className="login-h1">Sign In</h1>
-        <form onSubmit={handleSubmit} className="login-form">
-          <div className="signup-field">
-            <input
-              type="email"
-              name="email"
-              value={email}
-              onChange={handleChange}
-              placeholder="Email"
-              required
-            />
-          </div>
-          <div className="signup-field">
-            <input
-              type="password"
-              name="password"
-              value={password}
-              onChange={handleChange}
-              placeholder="Password"
-              required
-            />
-          </div>
-          <div className="signup-field">
-            <button type="submit">Sign In</button>
-          </div>
-          <div className="down-signin">
-            Do not have an account?
-            <Link to="/signup" className="">
-              Sign Up
-            </Link>
-          </div>
-        </form>
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="max-w-md w-full space-y-8 p-10 bg-white rounded-lg shadow-md">
+          <h1 className="text-2xl font-bold text-gray-800 text-center">Sign In</h1>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="rounded-md shadow-sm">
+              <div className="mb-4">
+                <input
+                  type="email"
+                  name="email"
+                  value={email}
+                  onChange={handleChange}
+                  placeholder="Email"
+                  required
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                />
+              </div>
+              <div className="mb-4">
+                <input
+                  type="password"
+                  name="password"
+                  value={password}
+                  onChange={handleChange}
+                  placeholder="Password"
+                  required
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                />
+              </div>
+            </div>
+
+            <div>
+              <button
+                type="submit"
+                className="w-full bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                Sign In
+              </button>
+            </div>
+            <div className="flex items-center justify-between text-sm">
+              <Link to="/forgot-password" className="text-purple-600 hover:underline">
+                Forgot Password?
+              </Link>
+            </div>
+            <div className="text-sm text-center mt-4">
+              Don’t have an account?{' '}
+              <Link to="/signup" className="text-purple-600 hover:underline">
+                Sign Up
+              </Link>
+            </div>
+          </form>
+        </div>
       </div>
     </>
   );
